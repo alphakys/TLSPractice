@@ -20,8 +20,7 @@ public class SecurityProvider {
 
         System.out.println(sb);
 
-        Cipher c = Cipher.getInstance("AES");
-        c.init(ENCRYPT_MODE, key);
+        
 
 
 
