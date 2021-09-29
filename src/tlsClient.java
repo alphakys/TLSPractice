@@ -11,8 +11,7 @@ import javax.net.ssl.SSLSocketFactory;
 public class tlsClient {
 	public static void main(String[] args)throws Exception{
 		
-
-		
+		 
 		try {
 			SSLSocketFactory factory = (SSLSocketFactory)SSLSocketFactory.getDefault();
 			SSLSocket socket = (SSLSocket)factory.createSocket("www.verisign.com", 443);

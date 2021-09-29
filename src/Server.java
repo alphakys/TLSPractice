@@ -97,6 +97,10 @@ import java.util.Scanner;
 
 public class Server {
     public static void main(String args[]){
+    	System.setProperty("javax.net.ssl.keyStore","/root/다운로드/keystore");
+    	System.setProperty("javax.net.ssl.keyStorePassword","passphrase");
+    	System.setProperty("javax.net.ssl.trustStore","/root/다운로드/truststore");
+	    System.setProperty("javax.net.ssl.trustStorePassword","passphrase");
         System.out.println("Server start");
 
         try {

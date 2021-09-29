@@ -3,6 +3,7 @@ import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.sql.Connection;
 
 import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLServerSocketFactory;
@@ -19,6 +20,13 @@ public class newTLS {
     private static final String message = "Greatest Man alpha_male_KYS";
 
     public static void main(String[] args) throws Exception{
+    	
+    	 System.setProperty("javax.net.ssl.keyStore","clientKeyStore.key");
+	    System.setProperty("javax.net.ssl.keyStorePassword","qwerty");
+	    System.setProperty("javax.net.ssl.trustStore","clientTrustStore.key");
+	    System.setProperty("javax.net.ssl.trustStorePassword","qwerty");
+	    
+	    
         try(EchoServer server = EchoServer.create()){
             new Thread(server).start();
             Thread.sleep(delay);
