@@ -1,2 +1,6 @@
 /tlsClient.class
 /hello.class
+/SSLSocketClient.class
+/SSLSocketClientWithTunneling.class
+/Url.class
+/SSLSocketClientWithAuth.class
