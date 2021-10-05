@@ -2,13 +2,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.ServerSocket;
 
-public class TLS extends ClassServer{
+import javax.net.ServerSocketFactory;
+import javax.net.ssl.SSLServerSocket;
+import javax.net.ssl.SSLServerSocketFactory;
+
+public class EchoServer extends ClassServer{
     
 	
-	
-    protected TLS(ServerSocket ss) {
+	protected EchoServer(ServerSocket ss) {
 		super(ss);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -25,5 +27,8 @@ public class TLS extends ClassServer{
 
 	public static void main(String[] args)throws Exception{
     	
+		
+		
+		EchoServer server = new EchoServer(ss);
     }
 }

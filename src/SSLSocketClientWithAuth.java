@@ -1,12 +1,12 @@
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
 import java.security.KeyStore;
 
 import javax.net.ssl.KeyManagerFactory;
@@ -17,13 +17,12 @@ import javax.net.ssl.SSLSocketFactory;
 public class SSLSocketClientWithAuth {
 
 	public static void main(String[] args)throws Exception {
-		InetAddress address = InetAddress.getLocalHost();
-		//System.out.println(address);
-		System.out.println(args.length);
-		String host = null;
-		int port =-1;
-		String path = null;
 		
+		
+		String host;
+		int port = 2004;
+		String path = null;
+		/*
 		for(int i=0; i<args.length; i++) {
 			System.out.println(args[i]);
 		}
@@ -33,8 +32,8 @@ public class SSLSocketClientWithAuth {
 								   "host port requestedfilepath");
 			System.exit(-1);
 		}
-		
-		
+		*/
+		/*
 		try {
 			host = args[0];
 			port = Integer.parseInt(args[1]);
@@ -44,6 +43,7 @@ public class SSLSocketClientWithAuth {
 	                 "host port requestedfilepath");
 	             System.exit(-1);
 		}
+		*/
 		
 		try {
 			SSLSocketFactory factory = null;
@@ -58,7 +58,7 @@ public class SSLSocketClientWithAuth {
 				kmf = KeyManagerFactory.getInstance("Sunx509");
 				ks = KeyStore.getInstance("JKS");
 				
-				ks.load(new FileInputStream("testkeys"), passphrase);
+				ks.load(new FileInputStream("/root/다운로드/keystore"), passphrase);
 				
 				kmf.init(ks, passphrase);
 				ctx.init(kmf.getKeyManagers(), null, null);
@@ -67,16 +67,23 @@ public class SSLSocketClientWithAuth {
 			}catch (Exception e) {
 				throw new IOException(e.getMessage());
 			}
-			
-			SSLSocket socket = (SSLSocket)factory.createSocket(host, port);
+			System.out.println("TLS connecting start");
+			SSLSocket socket = (SSLSocket)factory.createSocket("127.0.0.1", 4040);
 			socket.startHandshake();
-			
+			//System.setProperties("javax.net.debug=all");
+				//factory.createSocket(null, port)
 			PrintWriter out = new PrintWriter(new BufferedWriter
 													 (new OutputStreamWriter(socket.getOutputStream())));
+			OutputStream os = socket.getOutputStream();
+			BufferedOutputStream bos = new BufferedOutputStream(os);
 			
-			out.println("GET " + path + "HTTP/1.0");
-			out.println();
-			out.flush();
+			byte[] bytearr = new byte[256];
+			
+			String s = "TLS 시작";
+			bos.write(s.getBytes("UTF-8"));
+			//out.println("GET " + path + "HTTP/1.0");
+			//out.println();
+			//out.flush();
 			
 			if(out.checkError())
 				System.out.println("SSLSocketClient: java.io.PrintWriter error");
